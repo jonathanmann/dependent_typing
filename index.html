@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <title>Dependent Typing (Flail)</title>
+  </head>
+  <body onload="toss_salad()" onpaste="return false">
+    <h1>Dependent Typing (Flail)</h1>
+    <h3 id="countdown"></h3>
+    <h3>Type this text before time runs out:</h3>
+    <p1 id="word_salad"></p1>
+    </br>
+    <textarea id="dependent_copy" oninput="vc_update()" type="textarea" cols=50></textarea>
+  </body>
+</html>
+
+
+<script type="text/javascript">
+    
+    // Total seconds to wait
+    var seconds = 46;
+    const vc = document.getElementById("dependent_copy")
+    const wc = document.getElementById("word_salad")
+    var words = ["the","be","to","of","and","a","in","that","have","I","it","for","not","on","with","he","as","you","do","at","this","but","his","by","from","they","we","say","her","she","or","an","will","my","one","all","would","there","their","what","so","up","out","if","about","who","get","which","go","me","when","make","can","like","time","no","just","him","know","take","people","into","year","your","good","some","could","them","see","other","than","then","now","look","only","come","its","over","think","also","back","after","use","two","how","our","work","first","well","way","even","new","want","because","any","these","give","day","most","us"]
+    var holder = ""
+
+    function toss_salad(){
+        var salad = ""
+        for (i=0;i<25;i++){
+            if (salad.length > 1){
+                salad += " "
+            }
+            salad += words[Math.floor(Math.random() * 10000) % words.length]
+        }
+        wc.innerHTML = salad
+    }
+
+    function frustrate(c){
+        if (c == ' '){
+            return c
+        }
+        abc = 'abcdefghijklmnopqrstuvwzyz'
+        x = Math.random() * 100
+        if (x < 85){
+            return c
+        }
+        y = Math.floor(Math.random() * 10000) % 26
+        return abc[y]
+        
+    }
+
+    function vc_update(){
+        var t = vc.value
+        var last_char = t[t.length - 1]
+        var t_front = t.slice(0,t.length - 1)
+        if (t.length > 2){
+            vc.value = t_front + frustrate(last_char)
+        }
+    }
+    
+    function countdown() {
+        seconds = seconds - 1;
+        if (seconds < 0) {
+            // Chnage your redirection link here
+            //window.location = "/results";
+            if(wc.innerHTML == vc.value){
+                alert("FTW!")
+            }
+            else {
+                alert("FAIL!")
+            }
+        } else {
+            // Update remaining seconds
+            document.getElementById("countdown").innerHTML = seconds;
+            // Count down using javascript
+            window.setTimeout("countdown()", 1000);
+        }
+    }
+    
+    // Run countdown function
+    countdown();
+    
+</script>
